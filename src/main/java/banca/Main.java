@@ -25,7 +25,7 @@ public class Main {
 			boolean ok;
 			do {
 				ok = true;
-				selezione = Menu.MenuIniziale(); // Mostra il Menu iniziale di avvio del programma
+				selezione = Menu.MenuIniziale();
 
 			} while (!ok);
 
@@ -35,7 +35,7 @@ public class Main {
 
 				Login login = new Login(filePath);
 				login.setVisible(true);
-				
+
 				login.addWindowListener(new WindowAdapter() {
 					@Override
 					public void windowClosed(WindowEvent e) {
@@ -44,11 +44,10 @@ public class Main {
 						homepage.setVisible(true);
 					}
 				});
-				
+
 				break;
 			}
 
-			
 			case 0: {
 				System.out.print("Sei sicuro di voler uscire? (Y = si, Others = no)  ");
 				String scelta = tastiera.next();
@@ -63,5 +62,7 @@ public class Main {
 			}
 			}
 		} while (selezione != 0);
+
+		tastiera.close();
 	}
 }

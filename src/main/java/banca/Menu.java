@@ -12,7 +12,7 @@ public class Menu {
 		short selezione = -1;
 		boolean inputValido = true;
 
-		 do{
+		do {
 			System.out.print("Selezione: ");
 
 			try {
@@ -20,16 +20,16 @@ public class Menu {
 			} catch (Exception e) {
 				System.out.println("Errore: Inserire un numero numerico!");
 				inputValido = false;
-				tastiera.next(); // Salta tasto "invio" nel buffer
+				tastiera.next();
 			}
-			
-			if ( inputValido && (selezione < min || selezione > max) ) {
+
+			if (inputValido && (selezione < min || selezione > max)) {
 				inputValido = false;
 				System.out.println("Selezionare un'opzione valida!");
 			}
-			
-		}while (!inputValido);
-		 
+
+		} while (!inputValido);
+
 		return selezione;
 	}
 

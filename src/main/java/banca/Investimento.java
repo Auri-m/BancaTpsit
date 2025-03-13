@@ -202,7 +202,7 @@ public class Investimento extends JFrame {
 			risultato = "Hai guadagnato!";
 
 			dati[0] = ((importoInserito / 100) * FileTools.GeneraRandom(max, min)) * 100;
-			dati[0] = Math.floor(dati[0]*100)/100;
+			dati[0] = Math.floor(dati[0] * 100) / 100;
 			dati[1] = contoCorrente + dati[0];
 		} else {
 			risultato = "NON hai guadagnato!";
@@ -241,7 +241,7 @@ public class Investimento extends JFrame {
 			}
 		});
 	}
-	
+
 	/**
 	 * Metodo per prendere le settimane attuali
 	 * 
