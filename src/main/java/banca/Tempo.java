@@ -69,7 +69,7 @@ public class Tempo extends JFrame {
 		confirmButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String mesiString = new String(dateField.getText()).trim();
+				String mesiString = dateField.getText().trim();
 				action(filePath, pathGrafico, panel, mesiString, settimana, portafoglio, contoCorrente);
 			}
 		});

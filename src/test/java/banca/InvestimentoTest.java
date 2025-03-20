@@ -13,12 +13,9 @@ class InvestimentoTest {
 		String rischioScelto = "basso"; // "basso" o "medio" o "alto"
 		double contoCorrente = 0, importoInserito = 10;
 
-		boolean risultato = true;
-		if (contoCorrente < importoInserito) {
-			risultato = false;
-		}
+		boolean risultato = !(contoCorrente < importoInserito);
 
-		double dati[] = prova.investimento(rischioScelto, contoCorrente, importoInserito);
+        double[] dati = prova.investimento(rischioScelto, contoCorrente, importoInserito);
 
 		Assert.assertTrue(risultato);
 	}

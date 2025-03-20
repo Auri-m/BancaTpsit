@@ -11,10 +11,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class HomePage extends JFrame {
-	private JLabel userNameLabel;
-	private JLabel dateLabel;
-	private JTextArea actionLogArea;
-	private JPanel buttonPanel;
+	private final JLabel userNameLabel;
+	private final JLabel dateLabel;
+	private final JTextArea actionLogArea;
+	private final JPanel buttonPanel;
 	private int settimana = 1;
 
 	public HomePage(String filePath, String pathGrafico, String nome) {
@@ -78,21 +78,6 @@ public class HomePage extends JFrame {
 			JButton button = new JButton(label);
 			button.addActionListener(new ButtonClickListener(label, filePath, pathGrafico));
 			buttonPanel.add(button);
-		}
-	}
-
-	private class ButtonClickListener implements ActionListener {
-		private String actionLabel, filePath, pathGrafico;
-
-		public ButtonClickListener(String label, String filePath, String pathGrafico) {
-			this.actionLabel = label;
-			this.filePath = filePath;
-			this.pathGrafico = pathGrafico;
-		}
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			actions(filePath, pathGrafico, actionLabel);
 		}
 	}
 
@@ -163,10 +148,8 @@ public class HomePage extends JFrame {
 
 		if (conto <= 0) {
 			System.out.println("conto");
-			if (!actionLabel.equals("Deposito") && !actionLabel.equals("Avanti nel tempo")
-					&& !actionLabel.equals("Storico") && !actionLabel.equals("Esci")) {
-				return false;
-			}
+            return actionLabel.equals("Deposito") || actionLabel.equals("Avanti nel tempo")
+                    || actionLabel.equals("Storico") || actionLabel.equals("Esci");
 		}
 		return true;
 	}
@@ -257,6 +240,23 @@ public class HomePage extends JFrame {
 				actionLogArea.append("Hai visualizzato lo storico\n");
 			}
 		});
+	}
+
+	private class ButtonClickListener implements ActionListener {
+		private final String actionLabel;
+        private final String filePath;
+        private final String pathGrafico;
+
+		public ButtonClickListener(String label, String filePath, String pathGrafico) {
+			this.actionLabel = label;
+			this.filePath = filePath;
+			this.pathGrafico = pathGrafico;
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			actions(filePath, pathGrafico, actionLabel);
+		}
 	}
 
 }
