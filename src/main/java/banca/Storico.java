@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Storico extends JFrame {
 
-	private JTextArea textArea;
+	private final JTextArea textArea;
 
 	public Storico(String filePath) {
 		setTitle("Storico Transazioni");
@@ -32,8 +32,7 @@ public class Storico extends JFrame {
 
 		JButton confirmButton = new JButton("Letto");
 		confirmButton.setPreferredSize(new Dimension(590, 25));
-		;
-		confirmButton.setHorizontalAlignment(SwingConstants.CENTER);
+        confirmButton.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPanel.add(confirmButton, BorderLayout.SOUTH);
 
 		textArea = new JTextArea();

@@ -81,7 +81,7 @@ public class DepositaPreleva extends JFrame {
 		confirmButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String soldiString = new String(depositaPrelevaField.getText()).trim();
+				String soldiString = depositaPrelevaField.getText().trim();
 				actions(filePath, panel, soldiString, settimana, portafoglio, contoCorrente);
 			}
 		});
@@ -113,7 +113,7 @@ public class DepositaPreleva extends JFrame {
 			giusto = false;
 		}
 
-		double dati[];
+		double[] dati;
 		if (depositaPreleva.equals("Deposita")) {
 			dati = depositoPrelievo(panel, giusto, portafoglio, contoCorrente, soldi);
 		} else {

@@ -91,7 +91,7 @@ public class Investimento extends JFrame {
 		confermaButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String importoInseritoString = new String(importoField.getText()).trim();
+				String importoInseritoString = importoField.getText().trim();
 				action(filePath, pathGrafico, importoInseritoString, settimana, portafoglio, contoCorrente);
 			}
 		});
