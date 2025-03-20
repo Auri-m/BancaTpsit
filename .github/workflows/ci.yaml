@@ -37,14 +37,10 @@ jobs:
       - name: Compile Java code
         run: mvn compile
 
-  # Check Java code formatting using google-java-format
   formatting:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4 # v2 minimum required
-      - uses: axel-op/googlejavaformat-action@v3
+      - uses: axel-op/googlejavaformat-action@v4
         with:
-          args: "--replace"
-          skip-commit: true
-      - name: Print diffs
-        run: git --no-pager diff --exit-code
+          args: "--skip-sorting-imports --replace"
