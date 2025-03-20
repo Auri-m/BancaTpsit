@@ -1,6 +1,5 @@
 package banca;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import javax.swing.*;
 
 public class HomePage extends JFrame {
   private final JLabel userNameLabel;
