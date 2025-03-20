@@ -15,55 +15,55 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner tastiera = new Scanner(System.in);
+	public static void main(String[] args) {
+		Scanner tastiera = new Scanner(System.in);
 
-        String filePath = "C:\\Users\\Utente\\Documents\\AURORA\\BancaTpsit\\";
-        short selezione;
+		String filePath = "C:\\Users\\Utente\\Documents\\AURORA\\BancaTpsit\\";
+		short selezione;
 
-        do {
-            boolean ok;
-            do {
-                ok = true;
-                selezione = Menu.MenuIniziale();
+		do {
+			boolean ok;
+			do {
+				ok = true;
+				selezione = Menu.MenuIniziale();
 
-            } while (!ok);
+			} while (!ok);
 
-            switch (selezione) {
+			switch (selezione) {
 
-                case 1: {
+			case 1: {
 
-                    Login login = new Login(filePath);
-                    login.setVisible(true);
+				Login login = new Login(filePath);
+				login.setVisible(true);
 
-                    login.addWindowListener(new WindowAdapter() {
-                        @Override
-                        public void windowClosed(WindowEvent e) {
-                            String file = filePath + login.getNome() + ".csv";
-                            String grafico = filePath + login.getNome() + "_grafico.csv";
-                            HomePage homepage = new HomePage(file, grafico, login.getNome());
-                            homepage.setVisible(true);
-                        }
-                    });
+				login.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosed(WindowEvent e) {
+						String file = filePath + login.getNome() + ".csv";
+						String grafico = filePath + login.getNome() + "_grafico.csv";
+						HomePage homepage = new HomePage(file, grafico, login.getNome());
+						homepage.setVisible(true);
+					}
+				});
 
-                    break;
-                }
+				break;
+			}
 
-                case 0: {
-                    System.out.print("Sei sicuro di voler uscire? (Y = si, Others = no)  ");
-                    String scelta = tastiera.next();
+			case 0: {
+				System.out.print("Sei sicuro di voler uscire? (Y = si, Others = no)  ");
+				String scelta = tastiera.next();
 
-                    if (scelta.equalsIgnoreCase("Y")) {
-                        System.out.println("Sei uscito!");
-                    } else {
-                        selezione = 1;
-                        System.out.println("Hai scelto di non uscire!");
-                    }
-                    break;
-                }
-            }
-        } while (selezione != 0);
+				if (scelta.equalsIgnoreCase("Y")) {
+					System.out.println("Sei uscito!");
+				} else {
+					selezione = 1;
+					System.out.println("Hai scelto di non uscire!");
+				}
+				break;
+			}
+			}
+		} while (selezione != 0);
 
-        tastiera.close();
-    }
+		tastiera.close();
+	}
 }
