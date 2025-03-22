@@ -162,9 +162,7 @@ public class DepositaPreleva extends JFrame {
    */
   public double[] depositoPrelievo(
       JPanel panel, boolean giusto, double togli, double aggiungi, double soldi) {
-    if (!giusto || (soldi <= 0 || soldi > togli)) {
-      JOptionPane.showMessageDialog(panel, "Importo errato", "Errore", JOptionPane.ERROR_MESSAGE);
-    } else {
+    if (giusto && (soldi > 0 || soldi <= togli)) {
       JOptionPane.showMessageDialog(panel, "Azione svolta");
 
       double[] dati =
