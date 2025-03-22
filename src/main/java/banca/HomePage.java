@@ -24,7 +24,11 @@ public class HomePage extends JFrame {
         new WindowAdapter() {
           @Override
           public void windowClosing(WindowEvent e) {
-            FileTools.esciEntra(filePath, 0);
+            try {
+				FileTools.esciEntra(filePath, 0);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
             System.exit(0);
           }
         });
@@ -109,19 +113,24 @@ public class HomePage extends JFrame {
       if (actionLabel.equals("Avanti nel tempo")) {
         avanzamento(filePath, pathGrafico);
       }
+      
       if (actionLabel.equals("Storico")) {
         storico(filePath);
       }
 
       if (actionLabel.equals("Esci")) {
-        FileTools.esciEntra(filePath, 0);
+        try {
+			FileTools.esciEntra(filePath, 0);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         dispose();
       }
 
       actionLogArea.setCaretPosition(actionLogArea.getDocument().getLength());
     } else {
       JOptionPane.showMessageDialog(
-          null, "Hai €0 nel conto oppure sei in rosso!", "Errore", JOptionPane.ERROR_MESSAGE);
+          null, "Hai €0 nel conto o nel portafoglio oppure sei in rosso!", "Errore", JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -145,6 +154,7 @@ public class HomePage extends JFrame {
     }
     String[] dati = ultimaRiga.split(";");
     double conto = Double.parseDouble(dati[1]);
+    double portafoglio = Double.parseDouble(dati[2]);
 
     if (conto <= 0) {
       System.out.println("conto");
@@ -153,6 +163,11 @@ public class HomePage extends JFrame {
           || actionLabel.equals("Storico")
           || actionLabel.equals("Esci");
     }
+    
+    if(portafoglio <= 0) {
+    	return !actionLabel.equals("Deposito");
+    }
+    
     return true;
   }
 
@@ -172,10 +187,14 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             setVisible(true);
-            if (azione.equals("Deposita")) {
-              actionLogArea.append("Hai depositato " + depositoPrelievo.getSoldi() + " euro\n");
+            if(depositoPrelievo.getAzione()) {
+            	if (azione.equals("Deposita")) {
+            		actionLogArea.append("Hai depositato " + depositoPrelievo.getSoldi() + " euro\n");
+            	} else {
+            		actionLogArea.append("Hai prelevato " + depositoPrelievo.getSoldi() + " euro\n");
+            	}
             } else {
-              actionLogArea.append("Hai prelevato " + depositoPrelievo.getSoldi() + " euro\n");
+            	actionLogArea.append("Deposito/Prelievo ANNULLATO\n");
             }
           }
         });
@@ -197,9 +216,13 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             setVisible(true);
-            settimana = investire.getTempo();
+            if(investire.getAzione()) {
+            	settimana = investire.getTempo();
             dateLabel.setText("Settimana " + settimana);
             actionLogArea.append("Hai investito " + investire.getImportoInserito() + " euro\n");
+            } else {
+            	actionLogArea.append("Investimento ANNULLATO\n");
+            }
           }
         });
   }
@@ -220,9 +243,13 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             setVisible(true);
-            settimana += avanzamento.getWeek();
-            dateLabel.setText("Settimana " + settimana);
-            actionLogArea.append("Sei avanzato di " + avanzamento.getWeek() + " settimane\n");
+            if(avanzamento.getAzione()) {
+            	settimana += avanzamento.getWeek();
+            	dateLabel.setText("Settimana " + settimana);
+            	actionLogArea.append("Sei avanzato di " + avanzamento.getWeek() + " settimane\n");
+            } else {
+            	actionLogArea.append("Avanzamento ANNULLATO\n");
+            }
           }
         });
   }

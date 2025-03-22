@@ -1,5 +1,6 @@
 package banca;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -15,18 +16,12 @@ import javax.swing.SwingUtilities;
 
 public class Tempo extends JFrame {
   private int week;
+  private boolean azione;
 
   public Tempo(String filePath, String pathGrafico) {
     setTitle("DEUTCH BANK");
     setSize(400, 300);
-    addWindowListener(
-        new WindowAdapter() {
-          @SuppressWarnings("unused")
-          public void WindowClosing(WindowEvent e) {
-            FileTools.esciEntra(filePath, 0);
-            dispose();
-          }
-        });
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setLocationRelativeTo(null);
 
     JPanel panel = new JPanel();
@@ -66,16 +61,31 @@ public class Tempo extends JFrame {
 
     JButton confirmButton = new JButton("Conferma");
     confirmButton.setBounds(150, 150, 100, 25);
+    confirmButton.setBackground(Color.green);
     panel.add(confirmButton);
 
     confirmButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
+        	azione = true;
             String mesiString = dateField.getText().trim();
             action(filePath, pathGrafico, panel, mesiString, settimana, portafoglio, contoCorrente);
           }
         });
+    
+    JButton cancelButton = new JButton("Annulla");
+	cancelButton.setBounds(150, 185, 100, 25);
+	cancelButton.setBackground(Color.red);
+	panel.add(cancelButton);
+	
+	cancelButton.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			azione = false;
+			dispose();
+		}
+	});
   }
 
   /**
@@ -131,5 +141,15 @@ public class Tempo extends JFrame {
    */
   public int getWeek() {
     return week;
+  }
+  
+  /**
+   * Metodo che restituisce il valore della variabile azione
+   * 
+   * @return true se l'azione e' stata svolta, false se e' 
+   * stata annullata
+   */
+  public boolean getAzione() {
+	  return azione;
   }
 }

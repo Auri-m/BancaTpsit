@@ -10,9 +10,10 @@ public class Menu {
     Scanner tastiera = new Scanner(System.in);
 
     short selezione = -1;
-    boolean inputValido = true;
+    boolean inputValido;
 
     do {
+    	inputValido = true;
       System.out.print("Selezione: ");
 
       try {

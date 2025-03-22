@@ -116,7 +116,7 @@ public class Login extends JFrame {
         writer.write(password + ";" + 1);
         writer.newLine();
 
-        writer.write(1 + ";" + conto + ";" + 100.0 + ";" + "Creazione");
+        writer.write(1 + ";" + conto + ";" + 100.0 + ";" + "Creazione\n");
       } catch (IOException e2) {
         e2.printStackTrace();
       }
@@ -129,12 +129,19 @@ public class Login extends JFrame {
     return 0;
   }
 
+  /**
+   * Metodo per creare il file che servira' per visualizzare il grafico di ogni utente
+   * 
+   * @param panel -- JPanel al quale si collega la finestra per mandare messaggi
+   * @param grafico -- variabile File per la creazione di un nuovo file
+   * @param conto -- variabile contenente il valore iniziale del conto bancario
+   */
   private void fileGrafico(JPanel panel, File grafico, double conto) {
     try {
       grafico.createNewFile();
 
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(grafico))) {
-        writer.write(0 + ";" + conto + ";" + 100.0 + ";" + "Creazione");
+        writer.write(0 + ";" + conto + ";" + 100.0 + "\n");
       } catch (IOException e2) {
         e2.printStackTrace();
       }

@@ -15,18 +15,12 @@ public class Investimento extends JFrame {
   private double importoInserito = 0;
   private String risultato = "";
   private int tempo;
+  private boolean azione;
 
   public Investimento(String filePath, String pathGrafico) {
     setTitle("Investimento");
     setSize(400, 300);
-    addWindowListener(
-        new WindowAdapter() {
-          @SuppressWarnings("unused")
-          public void WindowClosing(WindowEvent e) {
-            FileTools.esciEntra(filePath, 0);
-            dispose();
-          }
-        });
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setLocationRelativeTo(null);
 
     setLayout(new GridBagLayout());
@@ -53,6 +47,10 @@ public class Investimento extends JFrame {
     JTextField importoField = new JTextField(15);
 
     JButton confermaButton = new JButton("Conferma");
+	confermaButton.setBackground(Color.green);
+    
+    JButton cancelButton = new JButton("Annulla");
+	cancelButton.setBackground(Color.red);
 
     durataComboBox.addActionListener(e -> durataScelta = (String) durataComboBox.getSelectedItem());
 
@@ -89,11 +87,16 @@ public class Investimento extends JFrame {
     gbc.gridx = 1;
     gbc.gridy = 4;
     add(confermaButton, gbc);
+    
+    gbc.gridx = 0;
+    gbc.gridy = 4;
+    add(cancelButton, gbc);
 
     confermaButton.addActionListener(
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
+        	azione = true;
             String importoInseritoString = importoField.getText().trim();
             action(
                 filePath,
@@ -104,6 +107,14 @@ public class Investimento extends JFrame {
                 contoCorrente);
           }
         });
+	
+	cancelButton.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			azione = false;
+			dispose();
+		}
+	});
 
     setVisible(true);
   }
@@ -167,7 +178,7 @@ public class Investimento extends JFrame {
 
       JOptionPane.showMessageDialog(null, messaggioRisultato);
 
-      avanzamento(filePath, pathGrafico, settimana, portafoglio, nuovoConto);
+      avanzamento(filePath, pathGrafico, settimana, nuovoConto);
 
       setVisible(false);
     }
@@ -248,11 +259,10 @@ public class Investimento extends JFrame {
    * @param filePath -- Percorso del file interessato
    * @param pathGrafico -- Percorso per il file dedicato al grafico
    * @param settimana -- Settimana attuale
-   * @param portafoglio -- Variabile che indica il portafoglio attuale
    * @param nuovoConto -- Variabile che indica il conto corrente attuale
    */
   private void avanzamento(
-      String filePath, String pathGrafico, int settimana, double portafoglio, double nuovoConto) {
+      String filePath, String pathGrafico, int settimana, double nuovoConto) {
     Tempo avanzamento = new Tempo(filePath, pathGrafico);
     avanzamento.setVisible(true);
 
@@ -263,8 +273,10 @@ public class Investimento extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             tempo = settimana + avanzamento.getWeek();
+            String riga = FileTools.leggiUltimariga(filePath);
+            String[] portafoglio = riga.split(";");
             try {
-              FileTools.aggiungiNuovaRiga(filePath, portafoglio, conto, tempo, "Investimento");
+              FileTools.aggiungiNuovaRiga(filePath, Double.parseDouble(portafoglio[2]), conto, tempo, "Investimento");
             } catch (IOException e1) {
               e1.printStackTrace();
             }
@@ -289,5 +301,15 @@ public class Investimento extends JFrame {
    */
   public double getImportoInserito() {
     return importoInserito;
+  }
+  
+  /**
+   * Metodo che restituisce il valore della variabile azione
+   * 
+   * @return true se l'azione e' stata svolta, false se e' 
+   * stata annullata
+   */
+  public boolean getAzione() {
+	  return azione;
   }
 }

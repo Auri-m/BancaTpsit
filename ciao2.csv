@@ -1,7 +1,12 @@
-12;0
+12;0;;
 1;12.0;100.0;Creazione
 1;0.0;112.0;Deposito/Prelievo
 2;0.0;112.0;Avanzamento
 2;100.0;12.0;Deposito/Prelievo
 2;99.0;13.0;Deposito/Prelievo
 5;99.0;13.0;Avanzamento
+5;100.0;12.0;Deposito/Prelievo
+6;100.0;112.0;Avanzamento
+6;112.0;100.0;Deposito/Prelievo
+6;111.0;101.0;Deposito/Prelievo
+7;111.0;201.0;Avanzamento

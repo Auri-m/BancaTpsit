@@ -1,12 +1,15 @@
 package banca;
 
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileTools {
 
@@ -25,8 +28,9 @@ public class FileTools {
       String filePath, double portafoglio, double contoCorrente, int settimana, String azione)
       throws IOException {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
-      bw.newLine();
-      bw.write(settimana + ";" + contoCorrente + ";" + portafoglio + ";" + azione);
+      bw.write(settimana + ";" + contoCorrente + ";" + portafoglio + ";" + azione + "\n");
+      bw.flush();
+      bw.close();
     }
   }
 
@@ -42,8 +46,9 @@ public class FileTools {
   public static void aggiungiFileGrafico(
       String filePath, double portafoglio, double contoCorrente, int settimana) throws IOException {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath, true))) {
-      bw.newLine();
-      bw.write(settimana + ";" + contoCorrente + ";" + portafoglio);
+      bw.write(settimana + ";" + contoCorrente + ";" + portafoglio + "\n");
+      bw.flush();
+      bw.close();
     }
   }
 
@@ -71,20 +76,41 @@ public class FileTools {
    * @param flag -- Flag passato per indicare se si vuole indicare che un account sta andando in
    *     esecuzione(1) o se si sta chiudendo(0)
    */
-  public static void esciEntra(String filePath, int flag) {
-    try {
+  public static void esciEntra(String filePath, int flag) throws IOException {
+    /*try {
       Path path = Paths.get(filePath);
       ArrayList<String> righe = new ArrayList<String>(Files.readAllLines(path));
       String primaRiga = righe.get(0);
 
       String[] dati = primaRiga.split(";");
-      primaRiga = dati[0] + ";" + flag;
+      primaRiga = ;
       righe.set(0, primaRiga);
 
       Files.write(path, righe);
     } catch (IOException ex) {
       ex.printStackTrace();
-    }
+    }*/
+	  File nuovo = new File("temp.csv");
+		FileWriter writer = new FileWriter(nuovo);
+
+		File file = new File(filePath);
+		FileReader fr = new FileReader(file);
+		Scanner sc = new Scanner(fr);
+		String riga = sc.nextLine();
+		String accesso[] = riga.split(";");
+		writer.write(accesso[0] + ";" + flag + "\n");
+		
+		while(sc.hasNextLine()) {
+			riga = sc.nextLine();
+			writer.write(riga + "\n");
+			writer.flush();
+		}
+		
+		writer.close();
+		sc.close();
+		
+		file.delete();
+		nuovo.renameTo(file);
   }
 
   /**

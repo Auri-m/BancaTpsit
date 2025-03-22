@@ -17,14 +17,7 @@ public class Storico extends JFrame {
   public Storico(String filePath) {
     setTitle("Storico Transazioni");
     setSize(600, 400);
-    addWindowListener(
-        new WindowAdapter() {
-          @SuppressWarnings("unused")
-          public void WindowClosing(WindowEvent e) {
-            FileTools.esciEntra(filePath, 0);
-            dispose();
-          }
-        });
+    setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     setLocationRelativeTo(null);
     setLayout(new BorderLayout());
 
@@ -68,21 +61,24 @@ public class Storico extends JFrame {
       ArrayList<String> lines = new ArrayList<>(Files.readAllLines(Paths.get(filePath)));
 
       for (int i = 1; i < lines.size(); i++) {
-        String[] dati = lines.get(i).split(";");
-        String portafoglio = dati[2],
-            contoCorrente = dati[1],
-            settimana = dati[0],
-            azione = dati[3];
-        textArea.append(
-            "Settimana "
-                + settimana
-                + ", "
-                + azione
-                + ", conto corrente: "
-                + contoCorrente
-                + ", portafoglio: "
-                + portafoglio
-                + "\n");
+    	  if(!lines.get(i).isEmpty()) {
+    		  String[] dati = lines.get(i).split(";");
+    		  String portafoglio = dati[2],
+    				  contoCorrente = dati[1],
+    				  settimana = dati[0],
+    				  azione = dati[3];
+    		  textArea.append(
+    				  "Settimana "
+    						  + settimana
+    						  + ", "
+    						  + azione
+    						  + ", conto corrente: "
+    						  + contoCorrente
+    						  + ", portafoglio: "
+    						  + portafoglio
+    						  + "\n");
+    	  }
+        
       }
 
     } catch (IOException e) {
