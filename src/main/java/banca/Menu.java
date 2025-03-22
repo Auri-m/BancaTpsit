@@ -13,7 +13,7 @@ public class Menu {
     boolean inputValido;
 
     do {
-    	inputValido = true;
+      inputValido = true;
       System.out.print("Selezione: ");
 
       try {

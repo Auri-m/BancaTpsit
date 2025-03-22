@@ -6,9 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileTools {
@@ -90,27 +88,27 @@ public class FileTools {
     } catch (IOException ex) {
       ex.printStackTrace();
     }*/
-	  File nuovo = new File("temp.csv");
-		FileWriter writer = new FileWriter(nuovo);
+    File nuovo = new File("temp.csv");
+    FileWriter writer = new FileWriter(nuovo);
 
-		File file = new File(filePath);
-		FileReader fr = new FileReader(file);
-		Scanner sc = new Scanner(fr);
-		String riga = sc.nextLine();
-		String accesso[] = riga.split(";");
-		writer.write(accesso[0] + ";" + flag + "\n");
-		
-		while(sc.hasNextLine()) {
-			riga = sc.nextLine();
-			writer.write(riga + "\n");
-			writer.flush();
-		}
-		
-		writer.close();
-		sc.close();
-		
-		file.delete();
-		nuovo.renameTo(file);
+    File file = new File(filePath);
+    FileReader fr = new FileReader(file);
+    Scanner sc = new Scanner(fr);
+    String riga = sc.nextLine();
+    String accesso[] = riga.split(";");
+    writer.write(accesso[0] + ";" + flag + "\n");
+
+    while (sc.hasNextLine()) {
+      riga = sc.nextLine();
+      writer.write(riga + "\n");
+      writer.flush();
+    }
+
+    writer.close();
+    sc.close();
+
+    file.delete();
+    nuovo.renameTo(file);
   }
 
   /**

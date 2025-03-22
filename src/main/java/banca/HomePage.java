@@ -25,10 +25,10 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosing(WindowEvent e) {
             try {
-				FileTools.esciEntra(filePath, 0);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+              FileTools.esciEntra(filePath, 0);
+            } catch (IOException e1) {
+              e1.printStackTrace();
+            }
             System.exit(0);
           }
         });
@@ -113,24 +113,27 @@ public class HomePage extends JFrame {
       if (actionLabel.equals("Avanti nel tempo")) {
         avanzamento(filePath, pathGrafico);
       }
-      
+
       if (actionLabel.equals("Storico")) {
         storico(filePath);
       }
 
       if (actionLabel.equals("Esci")) {
         try {
-			FileTools.esciEntra(filePath, 0);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+          FileTools.esciEntra(filePath, 0);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
         dispose();
       }
 
       actionLogArea.setCaretPosition(actionLogArea.getDocument().getLength());
     } else {
       JOptionPane.showMessageDialog(
-          null, "Hai €0 nel conto o nel portafoglio oppure sei in rosso!", "Errore", JOptionPane.ERROR_MESSAGE);
+          null,
+          "Hai €0 nel conto o nel portafoglio oppure sei in rosso!",
+          "Errore",
+          JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -163,11 +166,11 @@ public class HomePage extends JFrame {
           || actionLabel.equals("Storico")
           || actionLabel.equals("Esci");
     }
-    
-    if(portafoglio <= 0) {
-    	return !actionLabel.equals("Deposito");
+
+    if (portafoglio <= 0) {
+      return !actionLabel.equals("Deposito");
     }
-    
+
     return true;
   }
 
@@ -187,14 +190,14 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             setVisible(true);
-            if(depositoPrelievo.getAzione()) {
-            	if (azione.equals("Deposita")) {
-            		actionLogArea.append("Hai depositato " + depositoPrelievo.getSoldi() + " euro\n");
-            	} else {
-            		actionLogArea.append("Hai prelevato " + depositoPrelievo.getSoldi() + " euro\n");
-            	}
+            if (depositoPrelievo.getAzione()) {
+              if (azione.equals("Deposita")) {
+                actionLogArea.append("Hai depositato " + depositoPrelievo.getSoldi() + " euro\n");
+              } else {
+                actionLogArea.append("Hai prelevato " + depositoPrelievo.getSoldi() + " euro\n");
+              }
             } else {
-            	actionLogArea.append("Deposito/Prelievo ANNULLATO\n");
+              actionLogArea.append("Deposito/Prelievo ANNULLATO\n");
             }
           }
         });
@@ -216,12 +219,12 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             setVisible(true);
-            if(investire.getAzione()) {
-            	settimana = investire.getTempo();
-            dateLabel.setText("Settimana " + settimana);
-            actionLogArea.append("Hai investito " + investire.getImportoInserito() + " euro\n");
+            if (investire.getAzione()) {
+              settimana = investire.getTempo();
+              dateLabel.setText("Settimana " + settimana);
+              actionLogArea.append("Hai investito " + investire.getImportoInserito() + " euro\n");
             } else {
-            	actionLogArea.append("Investimento ANNULLATO\n");
+              actionLogArea.append("Investimento ANNULLATO\n");
             }
           }
         });
@@ -243,12 +246,12 @@ public class HomePage extends JFrame {
           @Override
           public void windowClosed(WindowEvent e) {
             setVisible(true);
-            if(avanzamento.getAzione()) {
-            	settimana += avanzamento.getWeek();
-            	dateLabel.setText("Settimana " + settimana);
-            	actionLogArea.append("Sei avanzato di " + avanzamento.getWeek() + " settimane\n");
+            if (avanzamento.getAzione()) {
+              settimana += avanzamento.getWeek();
+              dateLabel.setText("Settimana " + settimana);
+              actionLogArea.append("Sei avanzato di " + avanzamento.getWeek() + " settimane\n");
             } else {
-            	actionLogArea.append("Avanzamento ANNULLATO\n");
+              actionLogArea.append("Avanzamento ANNULLATO\n");
             }
           }
         });

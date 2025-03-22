@@ -47,10 +47,10 @@ public class Investimento extends JFrame {
     JTextField importoField = new JTextField(15);
 
     JButton confermaButton = new JButton("Conferma");
-	confermaButton.setBackground(Color.green);
-    
+    confermaButton.setBackground(Color.green);
+
     JButton cancelButton = new JButton("Annulla");
-	cancelButton.setBackground(Color.red);
+    cancelButton.setBackground(Color.red);
 
     durataComboBox.addActionListener(e -> durataScelta = (String) durataComboBox.getSelectedItem());
 
@@ -87,7 +87,7 @@ public class Investimento extends JFrame {
     gbc.gridx = 1;
     gbc.gridy = 4;
     add(confermaButton, gbc);
-    
+
     gbc.gridx = 0;
     gbc.gridy = 4;
     add(cancelButton, gbc);
@@ -96,7 +96,7 @@ public class Investimento extends JFrame {
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-        	azione = true;
+            azione = true;
             String importoInseritoString = importoField.getText().trim();
             action(
                 filePath,
@@ -107,14 +107,15 @@ public class Investimento extends JFrame {
                 contoCorrente);
           }
         });
-	
-	cancelButton.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			azione = false;
-			dispose();
-		}
-	});
+
+    cancelButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            azione = false;
+            dispose();
+          }
+        });
 
     setVisible(true);
   }
@@ -261,8 +262,7 @@ public class Investimento extends JFrame {
    * @param settimana -- Settimana attuale
    * @param nuovoConto -- Variabile che indica il conto corrente attuale
    */
-  private void avanzamento(
-      String filePath, String pathGrafico, int settimana, double nuovoConto) {
+  private void avanzamento(String filePath, String pathGrafico, int settimana, double nuovoConto) {
     Tempo avanzamento = new Tempo(filePath, pathGrafico);
     avanzamento.setVisible(true);
 
@@ -276,7 +276,8 @@ public class Investimento extends JFrame {
             String riga = FileTools.leggiUltimariga(filePath);
             String[] portafoglio = riga.split(";");
             try {
-              FileTools.aggiungiNuovaRiga(filePath, Double.parseDouble(portafoglio[2]), conto, tempo, "Investimento");
+              FileTools.aggiungiNuovaRiga(
+                  filePath, Double.parseDouble(portafoglio[2]), conto, tempo, "Investimento");
             } catch (IOException e1) {
               e1.printStackTrace();
             }
@@ -302,14 +303,13 @@ public class Investimento extends JFrame {
   public double getImportoInserito() {
     return importoInserito;
   }
-  
+
   /**
    * Metodo che restituisce il valore della variabile azione
-   * 
-   * @return true se l'azione e' stata svolta, false se e' 
-   * stata annullata
+   *
+   * @return true se l'azione e' stata svolta, false se e' stata annullata
    */
   public boolean getAzione() {
-	  return azione;
+    return azione;
   }
 }

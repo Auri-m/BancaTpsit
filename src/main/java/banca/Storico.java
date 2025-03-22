@@ -3,8 +3,6 @@ package banca;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
@@ -61,24 +59,23 @@ public class Storico extends JFrame {
       ArrayList<String> lines = new ArrayList<>(Files.readAllLines(Paths.get(filePath)));
 
       for (int i = 1; i < lines.size(); i++) {
-    	  if(!lines.get(i).isEmpty()) {
-    		  String[] dati = lines.get(i).split(";");
-    		  String portafoglio = dati[2],
-    				  contoCorrente = dati[1],
-    				  settimana = dati[0],
-    				  azione = dati[3];
-    		  textArea.append(
-    				  "Settimana "
-    						  + settimana
-    						  + ", "
-    						  + azione
-    						  + ", conto corrente: "
-    						  + contoCorrente
-    						  + ", portafoglio: "
-    						  + portafoglio
-    						  + "\n");
-    	  }
-        
+        if (!lines.get(i).isEmpty()) {
+          String[] dati = lines.get(i).split(";");
+          String portafoglio = dati[2],
+              contoCorrente = dati[1],
+              settimana = dati[0],
+              azione = dati[3];
+          textArea.append(
+              "Settimana "
+                  + settimana
+                  + ", "
+                  + azione
+                  + ", conto corrente: "
+                  + contoCorrente
+                  + ", portafoglio: "
+                  + portafoglio
+                  + "\n");
+        }
       }
 
     } catch (IOException e) {

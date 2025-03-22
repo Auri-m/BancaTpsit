@@ -3,8 +3,6 @@ package banca;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -68,24 +66,25 @@ public class Tempo extends JFrame {
         new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-        	azione = true;
+            azione = true;
             String mesiString = dateField.getText().trim();
             action(filePath, pathGrafico, panel, mesiString, settimana, portafoglio, contoCorrente);
           }
         });
-    
+
     JButton cancelButton = new JButton("Annulla");
-	cancelButton.setBounds(150, 185, 100, 25);
-	cancelButton.setBackground(Color.red);
-	panel.add(cancelButton);
-	
-	cancelButton.addActionListener(new ActionListener() {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			azione = false;
-			dispose();
-		}
-	});
+    cancelButton.setBounds(150, 185, 100, 25);
+    cancelButton.setBackground(Color.red);
+    panel.add(cancelButton);
+
+    cancelButton.addActionListener(
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            azione = false;
+            dispose();
+          }
+        });
   }
 
   /**
@@ -142,14 +141,13 @@ public class Tempo extends JFrame {
   public int getWeek() {
     return week;
   }
-  
+
   /**
    * Metodo che restituisce il valore della variabile azione
-   * 
-   * @return true se l'azione e' stata svolta, false se e' 
-   * stata annullata
+   *
+   * @return true se l'azione e' stata svolta, false se e' stata annullata
    */
   public boolean getAzione() {
-	  return azione;
+    return azione;
   }
 }

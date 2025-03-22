@@ -131,7 +131,7 @@ public class Login extends JFrame {
 
   /**
    * Metodo per creare il file che servira' per visualizzare il grafico di ogni utente
-   * 
+   *
    * @param panel -- JPanel al quale si collega la finestra per mandare messaggi
    * @param grafico -- variabile File per la creazione di un nuovo file
    * @param conto -- variabile contenente il valore iniziale del conto bancario
